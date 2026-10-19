@@ -135,7 +135,7 @@ The scoring engine combines positive deductions with strict safety bounds:
 
 $$\text{Positive Deductions} = \min\left(15, \; 5 \times |\text{Positive Indicators}|\right)$$
 
-$$\text{Final Risk Score} = \begin{cases} \max(50, \; \text{clamp}_{[0, 100]}(\text{Gross Score} - \text{Positive Deductions})) & \text{if has\_critical\_finding} \\ \text{clamp}_{[0, 100]}(\text{Gross Score} - \text{Positive Deductions}) & \text{otherwise} \end{cases}$$
+$$\text{Final Risk Score} = \begin{cases} \max(50, \; \text{clamp}_{[0, 100]}(\text{Gross Score} - \text{Positive Deductions})) & \text{if critical finding is present} \\ \text{clamp}_{[0, 100]}(\text{Gross Score} - \text{Positive Deductions}) & \text{otherwise} \end{cases}$$
 
 - **Deduction Ceiling**: Deductions are capped at **-15 points** to ensure that positive indicators cannot completely erase moderate or high-risk findings when multiple warning flags are triggered.
 - **Immutable Critical Floor Guardrail**: If **any** `CRITICAL` finding is detected (such as an asymmetric DEX sell trap, shadow `delegatecall` backdoor, or external oracle killswitch), the net risk score is **bounded below by 50**. This prevents malicious honeypot developers from gaming the detector by simply importing OpenZeppelin libraries or adding a dummy `renounceOwnership()` function.
@@ -1030,7 +1030,7 @@ $$\text{Gross Score} = \sum_{f \in \text{Findings}} W(\text{severity}(f))$$
 
 $$\text{Positive Deductions} = \min\left(15, \; 5 \times |\text{Positive Indicators}|\right)$$
 
-$$\text{Final Score} = \begin{cases} \max(50, \; \text{clamp}_{[0, 100]}(\text{Gross} - \text{Deductions})) & \text{if } \text{has\_critical\_finding} \\ \text{clamp}_{[0, 100]}(\text{Gross} - \text{Deductions}) & \text{otherwise} \end{cases}$$
+$$\text{Final Score} = \begin{cases} \max(50, \; \text{clamp}_{[0, 100]}(\text{Gross} - \text{Deductions})) & \text{if critical finding is present} \\ \text{clamp}_{[0, 100]}(\text{Gross} - \text{Deductions}) & \text{otherwise} \end{cases}$$
 
 ### Severity Point Weights
 - **`CRITICAL`** ($40$ points): Direct sell blockage, DEX pair transfer revert, or arbitrary execution backdoor.

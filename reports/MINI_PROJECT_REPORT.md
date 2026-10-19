@@ -290,15 +290,15 @@ Applies mitigating deductions (5 points per positive indicator, max 15 points). 
 ## 3.2 19-Dimensional Feature Extraction Algorithm
 The `FeatureExtractor` transforms raw Solidity source code into a normalized 19-dimensional numeric vector $X = [x_1, x_2, \dots, x_{19}]^T \in \mathbb{R}^{19}$:
 
-$$x_1 = \text{lines\_of\_code}, \quad x_2 = \text{num\_functions}, \quad x_3 = \text{num\_modifiers}$$
-$$x_4 = \mathbb{I}(\text{has\_transfer\_function}), \quad x_5 = \mathbb{I}(\text{has\_owner\_control})$$
-$$x_6 = \mathbb{I}(\text{HONEYPOT\_BLACKLIST}), \quad x_7 = \mathbb{I}(\text{HONEYPOT\_SELL\_RESTRICTION})$$
-$$x_8 = \mathbb{I}(\text{HONEYPOT\_EXCESSIVE\_SELL\_TAX}), \quad x_9 = \mathbb{I}(\text{HONEYPOT\_UNLIMITED\_OWNER\_TAX})$$
-$$x_{10} = \mathbb{I}(\text{HONEYPOT\_TRADING\_COOLDOWN\_DELAY}), \quad x_{11} = \mathbb{I}(\text{HONEYPOT\_PAUSABLE\_TRANSFERS})$$
-$$x_{12} = \mathbb{I}(\text{HONEYPOT\_MAX\_WALLET\_TX\_LIMIT}), \quad x_{13} = \mathbb{I}(\text{HONEYPOT\_HIDDEN\_MINT})$$
-$$x_{14} = \mathbb{I}(\text{HONEYPOT\_SUSPICIOUS\_ASSEMBLY}), \quad x_{15} = \mathbb{I}(\text{HONEYPOT\_EXTERNAL\_RESTRICTION\_CALL})$$
-$$x_{16} = \text{num\_positive\_indicators}, \quad x_{17} = \mathbb{I}(\text{has\_openzeppelin\_imports})$$
-$$x_{18} = \mathbb{I}(\text{has\_renounce\_ownership}), \quad x_{19} = \text{num\_total\_findings}$$
+$$x_1 = \text{lines of code}, \quad x_2 = \text{num functions}, \quad x_3 = \text{num modifiers}$$
+$$x_4 = \mathbb{I}(\text{has transfer function}), \quad x_5 = \mathbb{I}(\text{has owner control})$$
+$$x_6 = \mathbb{I}(\text{HONEYPOT BLACKLIST}), \quad x_7 = \mathbb{I}(\text{HONEYPOT SELL RESTRICTION})$$
+$$x_8 = \mathbb{I}(\text{HONEYPOT EXCESSIVE SELL TAX}), \quad x_9 = \mathbb{I}(\text{HONEYPOT UNLIMITED OWNER TAX})$$
+$$x_{10} = \mathbb{I}(\text{HONEYPOT TRADING COOLDOWN DELAY}), \quad x_{11} = \mathbb{I}(\text{HONEYPOT PAUSABLE TRANSFERS})$$
+$$x_{12} = \mathbb{I}(\text{HONEYPOT MAX WALLET TX LIMIT}), \quad x_{13} = \mathbb{I}(\text{HONEYPOT HIDDEN MINT})$$
+$$x_{14} = \mathbb{I}(\text{HONEYPOT SUSPICIOUS ASSEMBLY}), \quad x_{15} = \mathbb{I}(\text{HONEYPOT EXTERNAL RESTRICTION CALL})$$
+$$x_{16} = \text{num positive indicators}, \quad x_{17} = \mathbb{I}(\text{has openzeppelin imports})$$
+$$x_{18} = \mathbb{I}(\text{has renounce ownership}), \quad x_{19} = \text{num total findings}$$
 
 ## 3.3 Machine Learning Classification Algorithms
 1. **Random Forest Classifier**:
@@ -318,7 +318,7 @@ The risk scoring engine (`src/risk_scorer.py`) calculates a normalized risk scor
 
 $$\text{Base Score} = 40 \times N_{\text{critical}} + 25 \times N_{\text{high}} + 15 \times N_{\text{medium}} + 5 \times N_{\text{low}}$$
 
-$$\text{Deduction} = \min(15, \; 5 \times N_{\text{positive\_indicators}})$$
+$$\text{Deduction} = \min(15, \; 5 \times N_{\text{positive indicators}})$$
 
 $$\text{Net Score} = \text{Base Score} - \text{Deduction}$$
 
