@@ -1,0 +1,28 @@
+{
+  "name": "evm-honeypot-detector-mern",
+  "version": "1.0.0",
+  "description": "EVM Smart Contract Honeypot Attack Detector - Full MERN Stack Application",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "start": "node server/server.js",
+    "server": "npm start --prefix server",
+    "server:dev": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "client:build": "npm run build --prefix client",
+    "build": "npm run build --prefix client",
+    "clean:ports": "powershell -Command \"Get-NetTCPConnection -LocalPort 5000, 3000 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }\"",
+    "install:all": "npm install --prefix server && npm install --prefix client"
+  },
+  "keywords": [
+    "mern",
+    "blockchain",
+    "smart-contracts",
+    "honeypot-detector",
+    "ethereum",
+    "solidity",
+    "security-audit"
+  ],
+  "author": "",
+  "license": "MIT"
+}

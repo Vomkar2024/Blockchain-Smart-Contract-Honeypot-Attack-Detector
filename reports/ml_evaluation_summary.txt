@@ -1,0 +1,24 @@
+======================================================================
+ SMART CONTRACT HONEYPOT DETECTOR - ML EVALUATION REPORT
+======================================================================
+Evaluated at: 2026-10-14T13:36:53.593773+00:00
+Test Samples: 24 (Benign: 12, Honeypot: 12)
+
+--- RANDOM FOREST CLASSIFIER ---
+Accuracy:          1.0000
+Precision:         1.0000
+Recall:            1.0000
+F1-Score:          1.0000
+ROC-AUC:           1.0000
+Average Precision: 1.0000
+Confusion Matrix:  TN=12, FP=0, FN=0, TP=12
+
+--- LOGISTIC REGRESSION ---
+Accuracy:          1.0000
+Precision:         1.0000
+Recall:            1.0000
+F1-Score:          1.0000
+ROC-AUC:           1.0000
+Average Precision: 1.0000
+Confusion Matrix:  TN=12, FP=0, FN=0, TP=12
+======================================================================

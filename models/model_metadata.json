@@ -1,0 +1,103 @@
+{
+  "timestamp_utc": "2026-10-19T19:01:02.518356+00:00",
+  "dataset": {
+    "path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\data\\sample_contract_features.csv",
+    "total_samples": 120,
+    "train_samples": 96,
+    "test_samples": 24,
+    "features_count": 19,
+    "feature_names": [
+      "lines_of_code",
+      "num_functions",
+      "num_modifiers",
+      "has_transfer_function",
+      "has_owner_control",
+      "has_blacklist_mapping",
+      "has_sell_restriction_logic",
+      "has_excessive_fee",
+      "has_unbounded_fee_setter",
+      "has_cooldown_delay",
+      "has_pausable_transfers",
+      "has_max_tx_wallet_limit",
+      "has_hidden_mint",
+      "has_inline_assembly",
+      "has_external_transfer_call",
+      "num_positive_indicators",
+      "has_openzeppelin_imports",
+      "has_renounce_ownership",
+      "num_total_findings"
+    ]
+  },
+  "models": {
+    "random_forest": {
+      "algorithm": "RandomForestClassifier",
+      "artifact_path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\models\\random_forest_model.joblib",
+      "n_estimators": 100,
+      "cross_validation_5fold": {
+        "accuracy_mean": 1.0,
+        "precision_mean": 1.0,
+        "recall_mean": 1.0,
+        "f1_mean": 1.0,
+        "roc_auc_mean": 1.0
+      },
+      "top_5_features": [
+        [
+          "num_positive_indicators",
+          0.290996526072844
+        ],
+        [
+          "num_total_findings",
+          0.26911077198427763
+        ],
+        [
+          "has_renounce_ownership",
+          0.14696578503417662
+        ],
+        [
+          "has_openzeppelin_imports",
+          0.11949379706079899
+        ],
+        [
+          "num_functions",
+          0.0567383983476497
+        ]
+      ]
+    },
+    "logistic_regression": {
+      "algorithm": "LogisticRegression",
+      "artifact_path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\models\\logistic_regression_model.joblib",
+      "max_iter": 1000,
+      "cross_validation_5fold": {
+        "accuracy_mean": 1.0,
+        "precision_mean": 1.0,
+        "recall_mean": 1.0,
+        "f1_mean": 1.0,
+        "roc_auc_mean": 1.0
+      },
+      "top_5_coefficients": [
+        [
+          "num_positive_indicators",
+          -1.3635015699527253
+        ],
+        [
+          "has_renounce_ownership",
+          -0.9239740170876817
+        ],
+        [
+          "has_openzeppelin_imports",
+          -0.884242741351883
+        ],
+        [
+          "num_functions",
+          -0.6527798981969577
+        ],
+        [
+          "num_total_findings",
+          0.5390909630367647
+        ]
+      ]
+    }
+  },
+  "recommended_model": "RandomForestClassifier",
+  "scaler_path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\models\\scaler.joblib"
+}

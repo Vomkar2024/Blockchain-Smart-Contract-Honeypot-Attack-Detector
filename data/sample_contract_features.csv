@@ -1,0 +1,121 @@
+contract_id,contract_name,source_origin,lines_of_code,num_functions,num_modifiers,has_transfer_function,has_owner_control,has_blacklist_mapping,has_sell_restriction_logic,has_excessive_fee,has_unbounded_fee_setter,has_cooldown_delay,has_pausable_transfers,has_max_tx_wallet_limit,has_hidden_mint,has_inline_assembly,has_external_transfer_call,num_positive_indicators,has_openzeppelin_imports,has_renounce_ownership,num_total_findings,is_honeypot
+BENIGN_001,DAI_Stablecoin,MakerDAO Core Contracts,320,24,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_002,USDC_Token,Centre Consortium Etherscan Verified,450,32,4,1,1,0,0,0,0,0,0,0,0,0,0,4,1,0,0,0
+BENIGN_003,USDT_Token,Tether Etherscan Verified,380,28,3,1,1,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0
+BENIGN_004,Uniswap_UNI,Uniswap Governance Token,210,16,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_005,Chainlink_LINK,Chainlink Token Contract,280,22,3,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_006,Aave_AAVE,Aave Token v2,340,26,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_007,Wrapped_BTC,BitGo WBTC Contract,260,20,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0
+BENIGN_008,Compound_COMP,Compound Governance,230,18,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_009,Curve_CRV,Curve Finance DAO,310,25,3,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_010,Maker_MKR,Maker Protocol Governance,290,22,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_011,Synthetix_SNX,Synthetix Network Token,410,35,4,1,1,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0
+BENIGN_012,SushiSwap_SUSHI,SushiSwap Core Token,190,15,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_013,Balancer_BAL,Balancer Governance Token,220,17,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_014,1inch_1INCH,1inch Network Token,270,21,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_015,Yearn_YFI,Yearn Finance Token,180,14,1,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_016,Lido_LDO,Lido DAO Token,250,19,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_017,RocketPool_RPL,Rocket Pool Protocol,360,28,3,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_018,EthereumNameService_ENS,ENS Governance Token,240,18,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_019,Frax_FRAX,Frax Protocol Stablecoin,390,30,4,1,1,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0
+BENIGN_020,FraxShare_FXS,Frax Share Token,350,27,3,1,1,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0
+BENIGN_021,TheGraph_GRT,The Graph Protocol,300,23,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_022,BasicAttention_BAT,Brave BAT Token,210,16,2,1,1,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0
+BENIGN_023,Enjin_ENJ,Enjin Coin Contract,260,20,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0
+BENIGN_024,Decentraland_MANA,Decentraland Token,240,18,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,0,0,0
+BENIGN_025,Sandbox_SAND,The Sandbox Token,320,24,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_026,Pepe_PEPE,Pepe Standard Meme ERC20,175,12,1,1,0,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_027,ShibaInu_SHIB,Shiba Inu Token Contract,195,14,1,1,0,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0
+BENIGN_028,Arbitrum_ARB,Arbitrum Token Contract,280,22,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_029,Optimism_OP,Optimism Token Contract,260,20,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_030,Polygon_POL,Polygon Ecosystem Token,330,25,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_031,OZ_ERC20PresetFixed,OpenZeppelin v4.9 Preset,120,8,1,1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_032,OZ_ERC20Permit,OpenZeppelin v4.9 Permit,160,11,1,1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_033,OZ_ERC20Votes,OpenZeppelin v4.9 Governance,210,15,2,1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_034,OZ_ERC20Wrapper,OpenZeppelin v4.9 Wrapper,140,10,1,1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_035,OZ_ERC20Burnable,OpenZeppelin v4.9 Burnable,130,9,1,1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_036,OZ_ERC20Capped,OpenZeppelin v4.9 Capped,135,9,1,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_037,OZ_ERC20FlashMint,OpenZeppelin v4.9 FlashMint,170,12,2,1,0,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_038,OZ_ERC20Pausable_Safe,OpenZeppelin v4.9 Pausable Capped,185,13,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_039,OZ_ERC20Snapshot,OpenZeppelin v4.9 Snapshot,190,14,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_040,OZ_ERC20Upgradeable,OpenZeppelin Upgradeable v4,230,18,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_041,UniswapV2_Pair_ETH_USDT,Uniswap v2 Core Pair,280,21,2,1,0,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0
+BENIGN_042,UniswapV2_Pair_ETH_DAI,Uniswap v2 Core Pair,280,21,2,1,0,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0
+BENIGN_043,Sushiswap_Pair_WBTC_ETH,SushiSwap Core Pair,285,21,2,1,0,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0
+BENIGN_044,Curve_3Pool_LP,Curve Stableswap LP Token,310,22,2,1,0,0,0,0,0,0,0,0,0,0,0,3,0,1,0,0
+BENIGN_045,Yearn_Vault_yvUSDC,Yearn v2 Vault Token,420,32,4,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_046,Compound_cDAI,Compound Money Market cToken,450,36,4,1,1,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0
+BENIGN_047,Compound_cUSDC,Compound Money Market cToken,450,36,4,1,1,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0
+BENIGN_048,Aave_aUSDT,Aave v2 Interest Bearing Token,380,29,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,0,0,0
+BENIGN_049,Aave_aWETH,Aave v2 Interest Bearing Token,380,29,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,0,0,0
+BENIGN_050,Stargate_LP_USDC,Stargate Omnichain LP,340,25,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_051,SafeTax_Reflect_1,Audited Capped Tax Token (2%),310,24,3,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_052,SafeTax_Community_2,Audited Liquidity Fee Token (3%),295,22,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_053,SafeTax_Charity_3,Audited Staking Charity Token (1%),275,20,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_054,SafeEcosystem_Token,Community Governed DAO Token,225,17,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_055,GreenEnergy_DAO,Environmental Carbon Credit Token,310,23,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_056,LiquidStaked_ETH,Decentralized LST Protocol,390,30,4,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_057,MetaverseLand_Token,Gaming Protocol In-Game Token,260,20,2,1,1,0,0,0,0,0,0,0,0,0,0,3,1,1,0,0
+BENIGN_058,DecentralizedIdentity_ID,Web3 Identity Attestation Token,240,18,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_059,CrossChain_Bridge_Token,Multi-Sig Capped Bridge Token,330,26,3,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+BENIGN_060,BenignToken_Sample,Local Benchmark Benign Token,185,14,2,1,1,0,0,0,0,0,0,0,0,0,0,4,1,1,0,0
+HONEYPOT_001,SquidGame_ScamToken,Squid Game Blacklist Scam 2021,240,16,3,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_002,BabyFloki_Blacklist,DEX Bot Bait Honeypot,210,14,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_003,SafeElon_BlacklistGate,BSC Rugpull Blacklist Gate,230,15,2,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_004,Minereum_FakeAirdrop,Dusting Airdrop Blacklist Trap,180,11,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_005,MetaSpace_Blocker,Anti-Whale Blacklist Disguise,260,18,3,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_006,ElonDoge_TrapGate,Meme Blacklist Trap,195,13,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_007,ShibaShade_Blacklist,Uniswap v2 Fake Shib Trap,220,15,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_008,DarkMatter_Blacklist,Yield Farm Trap Blacklist,280,19,3,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_009,GrimReaper_99Fee,100% Tax Liquidity Burner,190,13,2,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_010,ScamMoon_99Tax,Uniswap Pair 99% Sell Fee Trap,205,14,2,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_011,Titan_FeeManipulator,90% Dynamic Sell Surcharge,215,15,2,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_012,FakeUSDT_TaxDrainer,Spoofed Stablecoin 95% Fee,225,15,2,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_013,InfiniteBurn_DEXScam,Pair Sell Deducts 99.9%,185,12,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_014,MegaPump_90Fee,Marketing Fee 90% Drainer,210,14,2,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_015,MoonShot_TaxTrap,Uniswap Sell Tax 98%,195,13,2,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_016,TurboRocket_99Tax,DEX Sell Penalty 99%,200,14,2,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,2,1
+HONEYPOT_017,OnlyBuy_Token,Asymmetric Router Block,175,12,2,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_018,AntiDump_PermanentTrap,Sell Condition Always Reverts,190,13,2,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_019,PancakeRouter_SellBlock,PancakePair Destination Check,230,16,2,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_020,LiquidityLocker_Scam,Transfer To Pair Denied,210,14,2,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_021,ZeroSell_PermitHoneypot,Only Whitelisted Can Sell,240,16,3,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_022,DEX_OneWayStreet,Buy Allowed Sell Reverts,185,12,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_023,OwnerFee_PumpScam,Admin SetFee(100) Unconstrained,220,15,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_024,StealthFee_Trap,Zero Initial Tax Then Set 99%,205,14,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_025,DynamicTax_Rug,SetSellFee Without Ceiling,235,16,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_026,AdminFee_Drainer,ModifyTransferFee Up To 100,215,14,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_027,HiddenTax_Setter,Owner-only Fee Alteration,195,13,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_028,ArbitraryFee_Token,Unbounded Sell Tax Setter,210,14,2,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_029,TimeLock_Drainer,Transfer Cooldown 7 Days,230,15,2,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_030,BotKiller_Honeypot,Block Number Transfer Trap,215,14,2,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_031,FreezeTransfer_Token,AntiBot 24 Hour Transfer Freeze,240,16,2,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_032,IntervalLock_Scam,Trading Delay 86400 Seconds,225,15,2,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_033,HoldersLock_Trap,Wallet Holding Period Lockup,205,13,2,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1
+HONEYPOT_034,PerpetualPause_Scam,Owner Pauses Transfers Forever,195,13,2,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1
+HONEYPOT_035,TrapDoor_Pausable,Owner Pauses Right After Listing,210,14,2,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1
+HONEYPOT_036,FreezeTrading_Coin,Emergency Pause Used As Honeypot,220,15,2,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1
+HONEYPOT_037,SuspendedSell_Coin,Sell Pausable Only By Creator,200,14,2,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,2,1
+HONEYPOT_038,OneClickPause_Token,Owner Pause Without Unpause,185,12,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1
+HONEYPOT_039,MicroTx_ScamToken,MaxTxAmount Set To 1 Wei,215,14,2,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1
+HONEYPOT_040,OneWeiLimit_Trap,Max Sell 1 Token Cent,195,13,2,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,2,1
+HONEYPOT_041,SlippageTrap_Coin,Max Wallet Restricts Liquidation,225,15,2,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1
+HONEYPOT_042,ZeroTransferLimit,Max Transfer Set To Zero By Admin,205,14,2,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,2,1
+HONEYPOT_043,DustOnly_Token,Max Sell Limit 0.0001% Supply,210,14,2,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,2,1
+HONEYPOT_044,SecretMint_Scam,Public Mint Protected By Owner Only,230,15,2,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+HONEYPOT_045,InfinityPrinter_Token,Owner Can Infinite Mint And Dump,220,14,2,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+HONEYPOT_046,BackdoorInflation_Scam,Hidden Mint In Staking Function,260,18,3,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+HONEYPOT_047,ShadowSupply_Coin,Owner Mint Without Cap,240,16,2,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+HONEYPOT_048,AirdropMint_Drainer,Batch Mint Exclusively For Owner,215,14,2,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1
+HONEYPOT_049,AssemblyBackdoor_Scam,Inline Assembly Bypasses Transfer,250,16,2,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1
+HONEYPOT_050,DelegateCall_Drainer,DelegateCall In Transfer Hook,280,18,2,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1
+HONEYPOT_051,RawStorageManipulator,Assembly Writes Balance Directly,260,17,2,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1
+HONEYPOT_052,ExternalOracle_Trap,External Contract Gating Transfers,270,18,2,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,2,1
+HONEYPOT_053,FakeRouterValidator,External Sell Validation Hook,290,19,3,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,2,1
+HONEYPOT_054,MaliciousHook_Token,External Oracle Reverts DEX Sell,275,18,2,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,2,1
+HONEYPOT_055,UltraRugPull_Combo,Blacklist + 99% Sell Tax + Unbounded,310,20,3,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,7,1
+HONEYPOT_056,FullSpectrum_Honeypot,Multi-Vector Attack Suite,350,24,4,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,10,1
+HONEYPOT_057,ShadowAdmin_Scam,Hidden Mint + Cooldown + Assembly,285,19,3,1,1,0,1,0,1,1,0,1,1,1,0,0,0,0,6,1
+HONEYPOT_058,HoneypotToken_Sample,Local Benchmark Honeypot Token,340,22,4,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,10,1
+HONEYPOT_059,DeFiVampire_Trap,Blacklist + Sell Restriction + Pause,295,19,3,1,1,1,1,0,1,0,1,0,0,0,0,0,0,0,4,1
+HONEYPOT_060,BlackHole_LiquidityTrap,99% Fee + MicroTx Limit + Cooldown,270,17,3,1,1,0,1,1,0,1,0,1,0,0,0,0,0,0,4,1
