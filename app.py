@@ -10,6 +10,7 @@ import sys
 import urllib.parse
 from pathlib import Path
 from typing import Dict, Any, Optional, List
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 # Ensure UTF-8 output encoding on Windows consoles
 if sys.platform == "win32":
@@ -259,112 +260,199 @@ def execute_contract_audit(
 # ---------------------------------------------------------------------------
 # Lightweight Standalone REST API Server Mode
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Module-Level REST API Handler & Vercel Python Runtime Interface
+# ---------------------------------------------------------------------------
+class HoneypotAPIHandler(BaseHTTPRequestHandler):
+    def _send_cors_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self._send_cors_headers()
+        self.end_headers()
+
+    def do_GET(self):
+        parsed = urllib.parse.urlparse(self.path)
+        self._send_cors_headers()
+
+        if parsed.path == "/api/health":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            res = {"status": "healthy", "service": "EVM Honeypot Detector Python API"}
+            self.wfile.write(json.dumps(res).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/networks":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            networks = {k: {"name": v.name, "chain_id": v.chain_id} for k, v in SUPPORTED_NETWORKS.items()}
+            self.wfile.write(json.dumps(networks).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/samples":
+            query_params = urllib.parse.parse_qs(parsed.query)
+            filter_level = query_params.get("level", [None])[0]
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            samples = get_samples_dict(filter_level=filter_level)
+            self.wfile.write(json.dumps(samples).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/rules":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            rules = get_rules_catalog()
+            self.wfile.write(json.dumps(rules).encode("utf-8"))
+            return
+
+        self.send_response(404)
+        self.end_headers()
+
+    def do_POST(self):
+        parsed = urllib.parse.urlparse(self.path)
+        self._send_cors_headers()
+
+        if parsed.path == "/api/analyze":
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8")
+            try:
+                payload = json.loads(body) if body else {}
+            except Exception:
+                payload = {}
+
+            code = payload.get("code", "")
+            address = payload.get("address", "")
+            preset = payload.get("preset", "")
+            network = payload.get("network", "ethereum")
+            simulate = bool(payload.get("simulate", False))
+
+            if preset and not code and preset in SAMPLE_CATALOG:
+                target_input = preset
+                mode = "preset"
+            else:
+                target_input = address if address else code
+                mode = "address" if address else "source_code"
+
+            report = execute_contract_audit(
+                contract_input=target_input,
+                input_type=mode,
+                network_name=network,
+                simulate=simulate,
+            )
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(report.to_json().encode("utf-8"))
+            return
+
+        if parsed.path == "/api/train-ml":
+            from ml.train_model import train_and_save_all_models
+            res = train_and_save_all_models()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(res).encode("utf-8"))
+            return
+
+        self.send_response(404)
+        self.end_headers()
+
+
+# Vercel Python runtime handler export
+handler = HoneypotAPIHandler
+
+
+def app(environ: Dict[str, Any], start_response: Any) -> List[bytes]:
+    """WSGI callable entrypoint for Vercel Python runtime."""
+    path = environ.get("PATH_INFO", "")
+    method = environ.get("REQUEST_METHOD", "GET")
+    query_string = environ.get("QUERY_STRING", "")
+
+    cors_headers = [
+        ("Content-Type", "application/json"),
+        ("Access-Control-Allow-Origin", "*"),
+        ("Access-Control-Allow-Methods", "GET, POST, OPTIONS"),
+        ("Access-Control-Allow-Headers", "Content-Type, Authorization"),
+    ]
+
+    if method == "OPTIONS":
+        start_response("200 OK", cors_headers)
+        return [b""]
+
+    if method == "GET":
+        if path == "/api/health":
+            start_response("200 OK", cors_headers)
+            res = {"status": "healthy", "service": "EVM Honeypot Detector Python API"}
+            return [json.dumps(res).encode("utf-8")]
+
+        if path == "/api/networks":
+            start_response("200 OK", cors_headers)
+            networks = {k: {"name": v.name, "chain_id": v.chain_id} for k, v in SUPPORTED_NETWORKS.items()}
+            return [json.dumps(networks).encode("utf-8")]
+
+        if path == "/api/samples":
+            query_params = urllib.parse.parse_qs(query_string)
+            filter_level = query_params.get("level", [None])[0]
+            start_response("200 OK", cors_headers)
+            samples = get_samples_dict(filter_level=filter_level)
+            return [json.dumps(samples).encode("utf-8")]
+
+        if path == "/api/rules":
+            start_response("200 OK", cors_headers)
+            rules = get_rules_catalog()
+            return [json.dumps(rules).encode("utf-8")]
+
+    elif method == "POST":
+        content_length = int(environ.get("CONTENT_LENGTH", 0) or 0)
+        body = environ["wsgi.input"].read(content_length).decode("utf-8") if content_length > 0 else ""
+        try:
+            payload = json.loads(body) if body else {}
+        except Exception:
+            payload = {}
+
+        if path == "/api/analyze":
+            code = payload.get("code", "")
+            address = payload.get("address", "")
+            preset = payload.get("preset", "")
+            network = payload.get("network", "ethereum")
+            simulate = bool(payload.get("simulate", False))
+
+            if preset and not code and preset in SAMPLE_CATALOG:
+                target_input = preset
+                mode = "preset"
+            else:
+                target_input = address if address else code
+                mode = "address" if address else "source_code"
+
+            report = execute_contract_audit(
+                contract_input=target_input,
+                input_type=mode,
+                network_name=network,
+                simulate=simulate,
+            )
+            start_response("200 OK", cors_headers)
+            return [report.to_json().encode("utf-8")]
+
+        if path == "/api/train-ml":
+            from ml.train_model import train_and_save_all_models
+            res = train_and_save_all_models()
+            start_response("200 OK", cors_headers)
+            return [json.dumps(res).encode("utf-8")]
+
+    start_response("404 Not Found", cors_headers)
+    return [b'{"error": "Not Found"}']
+
+
 def run_rest_api_server(port: int = 5000):
     """Start standard library HTTP REST bridge for MERN stack integration."""
-    from http.server import HTTPServer, BaseHTTPRequestHandler
-
-    class HoneypotAPIHandler(BaseHTTPRequestHandler):
-        def _send_cors_headers(self):
-            self.send_header("Access-Control-Allow-Origin", "*")
-            self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-            self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
-
-        def do_OPTIONS(self):
-            self.send_response(200)
-            self._send_cors_headers()
-            self.end_headers()
-
-        def do_GET(self):
-            parsed = urllib.parse.urlparse(self.path)
-            self._send_cors_headers()
-
-            if parsed.path == "/api/health":
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                res = {"status": "healthy", "service": "EVM Honeypot Detector Python API"}
-                self.wfile.write(json.dumps(res).encode("utf-8"))
-                return
-
-            if parsed.path == "/api/networks":
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                networks = {k: {"name": v.name, "chain_id": v.chain_id} for k, v in SUPPORTED_NETWORKS.items()}
-                self.wfile.write(json.dumps(networks).encode("utf-8"))
-                return
-
-            if parsed.path == "/api/samples":
-                query_params = urllib.parse.parse_qs(parsed.query)
-                filter_level = query_params.get("level", [None])[0]
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                samples = get_samples_dict(filter_level=filter_level)
-                self.wfile.write(json.dumps(samples).encode("utf-8"))
-                return
-
-            if parsed.path == "/api/rules":
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                rules = get_rules_catalog()
-                self.wfile.write(json.dumps(rules).encode("utf-8"))
-                return
-
-            self.send_response(404)
-            self.end_headers()
-
-        def do_POST(self):
-            parsed = urllib.parse.urlparse(self.path)
-            self._send_cors_headers()
-
-            if parsed.path == "/api/analyze":
-                length = int(self.headers.get("Content-Length", 0))
-                body = self.rfile.read(length).decode("utf-8")
-                try:
-                    payload = json.loads(body) if body else {}
-                except Exception:
-                    payload = {}
-
-                code = payload.get("code", "")
-                address = payload.get("address", "")
-                preset = payload.get("preset", "")
-                network = payload.get("network", "ethereum")
-                simulate = bool(payload.get("simulate", False))
-
-                if preset and not code and preset in SAMPLE_CATALOG:
-                    target_input = preset
-                    mode = "preset"
-                else:
-                    target_input = address if address else code
-                    mode = "address" if address else "source_code"
-
-                report = execute_contract_audit(
-                    contract_input=target_input,
-                    input_type=mode,
-                    network_name=network,
-                    simulate=simulate,
-                )
-
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                self.wfile.write(report.to_json().encode("utf-8"))
-                return
-
-            if parsed.path == "/api/train-ml":
-                from ml.train_model import train_and_save_all_models
-                res = train_and_save_all_models()
-                self.send_response(200)
-                self.send_header("Content-Type", "application/json")
-                self.end_headers()
-                self.wfile.write(json.dumps(res).encode("utf-8"))
-                return
-
-            self.send_response(404)
-            self.end_headers()
-
     server = HTTPServer(("0.0.0.0", port), HoneypotAPIHandler)
     print(f"[+] Python API Bridge Server listening on http://localhost:{port}")
     try:

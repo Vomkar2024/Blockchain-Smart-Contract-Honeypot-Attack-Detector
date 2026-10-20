@@ -22,10 +22,48 @@ function getPythonExecutable() {
 }
 
 /**
- * Executes the Python analysis pipeline using child_process.
+ * Executes the Python analysis pipeline.
+ * If APP_URL is injected via Vercel service binding, calls the Python microservice over HTTP.
+ * Otherwise falls back to local child_process execution.
+ */
+async function runPythonAudit(inputData, inputType = "auto", network = "ethereum", simulate = false) {
+  if (process.env.APP_URL) {
+    const targetUrl = new URL("/api/analyze", process.env.APP_URL);
+    const payload = {
+      network,
+      simulate
+    };
+
+    if (inputType === "preset") {
+      payload.preset = inputData;
+    } else if (inputType === "address") {
+      payload.address = inputData;
+    } else {
+      payload.code = inputData;
+    }
+
+    const response = await fetch(targetUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`Python engine service returned HTTP ${response.status}: ${errText}`);
+    }
+
+    return await response.json();
+  }
+
+  return runPythonAuditLocal(inputData, inputType, network, simulate);
+}
+
+/**
+ * Executes the Python analysis pipeline locally using child_process.
  * Safely passes input code/address via temporary JSON or stdin to avoid Windows CLI escaping limits.
  */
-function runPythonAudit(inputData, inputType = "auto", network = "ethereum", simulate = false) {
+function runPythonAuditLocal(inputData, inputType = "auto", network = "ethereum", simulate = false) {
   return new Promise((resolve, reject) => {
     const pythonExe = getPythonExecutable();
     const tempDir = path.join(BASE_DIR, "reports");
@@ -154,6 +192,9 @@ router.post("/analyze", upload.single("file"), async (req, res) => {
       if (fs.existsSync(samplePath)) {
         inputData = fs.readFileSync(samplePath, "utf-8");
         inputType = "source_code";
+      } else if (process.env.APP_URL) {
+        inputData = presetName;
+        inputType = "preset";
       } else {
         return res.status(404).json({ error: `Preset ${presetName} not found.` });
       }
@@ -326,8 +367,24 @@ router.get("/stats", async (req, res) => {
  * GET /api/samples
  * Return comprehensive multi-tier educational samples across all 4 threat levels
  */
-router.get("/samples", (req, res) => {
+router.get("/samples", async (req, res) => {
   try {
+    const filterLevel = req.query.level ? req.query.level.toUpperCase() : null;
+
+    // In Vercel multi-service mode, query the bound Python service if local samples folder is not present
+    if (process.env.APP_URL && !fs.existsSync(SAMPLES_DIR)) {
+      try {
+        const targetUrl = new URL("/api/samples", process.env.APP_URL);
+        if (filterLevel) targetUrl.searchParams.set("level", filterLevel);
+        const response = await fetch(targetUrl);
+        if (response.ok) {
+          const remoteSamples = await response.json();
+          return res.json(remoteSamples);
+        }
+      } catch (svcErr) {
+        console.warn("[!] Could not fetch samples from Python service:", svcErr.message);
+      }
+    }
     const sampleFiles = [
       // 1. CRITICAL THREAT LEVEL
       {
@@ -450,7 +507,6 @@ router.get("/samples", (req, res) => {
       }
     ];
 
-    const filterLevel = req.query.level ? req.query.level.toUpperCase() : null;
     const samples = {};
 
     sampleFiles.forEach(s => {
@@ -571,7 +627,29 @@ router.get("/rules", (req, res) => {
  * POST /api/train-ml
  * Retrain ML models via Python pipeline
  */
-router.post("/train-ml", (req, res) => {
+router.post("/train-ml", async (req, res) => {
+  if (process.env.APP_URL) {
+    try {
+      const targetUrl = new URL("/api/train-ml", process.env.APP_URL);
+      const response = await fetch(targetUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+      if (!response.ok) {
+        const errText = await response.text();
+        return res.status(500).json({ error: "Model training failed on Python service.", details: errText });
+      }
+      const data = await response.json();
+      return res.json({
+        success: true,
+        message: "Machine learning models retrained and persisted successfully.",
+        log: data
+      });
+    } catch (err) {
+      return res.status(500).json({ error: "Failed to connect to Python service for training.", details: err.message });
+    }
+  }
+
   const pythonExe = getPythonExecutable();
   const proc = spawn(pythonExe, ["main.py", "--train-ml"], {
     cwd: BASE_DIR,

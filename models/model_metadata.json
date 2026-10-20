@@ -1,7 +1,7 @@
 {
-  "timestamp_utc": "2026-10-19T19:01:02.518356+00:00",
+  "timestamp_utc": "2026-10-20T04:14:26.681041+00:00",
   "dataset": {
-    "path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\data\\sample_contract_features.csv",
+    "path": "E:\\Download\\College\\LP4\\CSDF\\New folder\\Blockchain-Smart-Contract-Honeypot-Attack-Detector\\data\\sample_contract_features.csv",
     "total_samples": 120,
     "train_samples": 96,
     "test_samples": 24,
@@ -31,7 +31,7 @@
   "models": {
     "random_forest": {
       "algorithm": "RandomForestClassifier",
-      "artifact_path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\models\\random_forest_model.joblib",
+      "artifact_path": "E:\\Download\\College\\LP4\\CSDF\\New folder\\Blockchain-Smart-Contract-Honeypot-Attack-Detector\\models\\random_forest_model.joblib",
       "n_estimators": 100,
       "cross_validation_5fold": {
         "accuracy_mean": 1.0,
@@ -65,7 +65,7 @@
     },
     "logistic_regression": {
       "algorithm": "LogisticRegression",
-      "artifact_path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\models\\logistic_regression_model.joblib",
+      "artifact_path": "E:\\Download\\College\\LP4\\CSDF\\New folder\\Blockchain-Smart-Contract-Honeypot-Attack-Detector\\models\\logistic_regression_model.joblib",
       "max_iter": 1000,
       "cross_validation_5fold": {
         "accuracy_mean": 1.0,
@@ -99,5 +99,5 @@
     }
   },
   "recommended_model": "RandomForestClassifier",
-  "scaler_path": "E:\\Download\\College\\LP4\\CSDF\\mini-project\\models\\scaler.joblib"
+  "scaler_path": "E:\\Download\\College\\LP4\\CSDF\\New folder\\Blockchain-Smart-Contract-Honeypot-Attack-Detector\\models\\scaler.joblib"
 }

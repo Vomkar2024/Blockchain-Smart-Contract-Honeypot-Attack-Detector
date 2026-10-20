@@ -58,10 +58,16 @@ mongoose.connect(MONGO_URI)
     console.warn("[!] Server will operate with degraded persistent history (audit execution remains fully functional).");
   });
 
-// Start Express server
-const HOST = process.env.HOST || "0.0.0.0";
-const server = app.listen(PORT, HOST, () => {
-  console.log(`[+] MERN Backend Server listening on http://127.0.0.1:${PORT} (all interfaces on ${HOST}:${PORT})`);
-});
+// Start Express server if run directly (skip app.listen in Vercel serverless environment)
+let server = null;
+if (!process.env.VERCEL) {
+  const HOST = process.env.HOST || "0.0.0.0";
+  server = app.listen(PORT, HOST, () => {
+    console.log(`[+] MERN Backend Server listening on http://127.0.0.1:${PORT} (all interfaces on ${HOST}:${PORT})`);
+  });
+}
 
-module.exports = { app, server };
+app.server = server;
+module.exports = app;
+module.exports.app = app;
+module.exports.server = server;

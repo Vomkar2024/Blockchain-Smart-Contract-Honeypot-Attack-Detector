@@ -83,3 +83,7 @@ models/*.joblib
 # OS generated
 .DS_Store
 Thumbs.db
+
+# Vercel
+.vercel/
+

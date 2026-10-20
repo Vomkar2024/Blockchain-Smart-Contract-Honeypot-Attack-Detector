@@ -33,7 +33,7 @@ export default function App() {
     } catch (networkErr) {
       setIsBackendOnline(false);
       throw new Error(
-        'Backend server is unreachable. Please verify the Express server is running on http://127.0.0.1:5000 (run `npm run dev` or `npm run server`).'
+        'Backend server is unreachable. Please verify the Express backend service is running (locally on http://127.0.0.1:5000 or via `vercel dev`).'
       );
     }
 
@@ -56,7 +56,7 @@ export default function App() {
       if (res.status === 504 || res.status === 502 || res.status === 503) {
         setIsBackendOnline(false);
         throw new Error(
-          `Vite Proxy Error (HTTP ${res.status}): Backend server at http://127.0.0.1:5000 is not responding. Please start the Express server.`
+          `API Service Error (HTTP ${res.status}): Backend server is not responding. Please verify the backend service is running.`
         );
       }
       const errMessage =
