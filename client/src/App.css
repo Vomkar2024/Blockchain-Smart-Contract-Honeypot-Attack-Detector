@@ -20,6 +20,18 @@
   --sev-success: #10b981;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+#audit-results-section {
+  scroll-margin-top: 24px;
+}
+
+#pipeline-error-banner {
+  scroll-margin-top: 24px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

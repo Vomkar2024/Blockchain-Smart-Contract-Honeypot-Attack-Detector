@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import HeaderMetrics from './components/HeaderMetrics';
 import ContractInput from './components/ContractInput';
 import ThreatVerdictBanner from './components/ThreatVerdictBanner';
@@ -24,6 +24,10 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isBackendOnline, setIsBackendOnline] = useState(true);
+
+  // References for reliable smooth scrolling to output results and error elements
+  const reportRef = useRef(null);
+  const errorRef = useRef(null);
 
   // Safe fetch helper with defensive JSON parsing and server-offline diagnostics
   const safeFetchJson = async (url, options = {}) => {
@@ -105,6 +109,34 @@ export default function App() {
     return () => clearInterval(retryTimer);
   }, [isBackendOnline]);
 
+  // Automatically scroll down to forensic output results as soon as report is generated or loaded
+  useEffect(() => {
+    if (currentReport) {
+      const scrollTimer = setTimeout(() => {
+        const targetElement = reportRef.current || document.getElementById('audit-results-section');
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 120);
+
+      return () => clearTimeout(scrollTimer);
+    }
+  }, [currentReport]);
+
+  // Smooth scroll to pipeline error banner if an audit operation encounters an error
+  useEffect(() => {
+    if (errorMessage) {
+      const errorTimer = setTimeout(() => {
+        const targetElement = errorRef.current || document.getElementById('pipeline-error-banner');
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 120);
+
+      return () => clearTimeout(errorTimer);
+    }
+  }, [errorMessage]);
+
   const navigateView = (view) => {
     if (view === 'rules') {
       if (currentView === 'rules') {
@@ -176,11 +208,6 @@ export default function App() {
       setCurrentReport(data.report);
       fetchStats();
       fetchHistory();
-
-      // Smooth scroll to results
-      setTimeout(() => {
-        window.scrollTo({ top: 480, behavior: 'smooth' });
-      }, 100);
     } catch (err) {
       setErrorMessage(err.message);
     } finally {
@@ -200,7 +227,6 @@ export default function App() {
       if (data && data.rawReport) {
         setCurrentReport(data.rawReport);
         setTargetLine(null);
-        window.scrollTo({ top: 500, behavior: 'smooth' });
       }
     } catch (err) {
       console.error('Error fetching audit details:', err);
@@ -349,14 +375,24 @@ export default function App() {
 
           {/* Error Banner */}
           {errorMessage && (
-            <div className="glass-card" style={{ borderColor: '#ef4444', background: 'rgba(239, 68, 68, 0.12)', marginTop: '20px' }}>
+            <div
+              ref={errorRef}
+              id="pipeline-error-banner"
+              className="glass-card"
+              style={{ borderColor: '#ef4444', background: 'rgba(239, 68, 68, 0.12)', marginTop: '20px' }}
+            >
               <b style={{ color: '#f87171' }}>✘ Forensic Audit Pipeline Error:</b> {errorMessage}
             </div>
           )}
 
           {/* 3. Analysis Results Section */}
           {currentReport && (
-            <div className="report-fade-in" style={{ marginTop: '24px' }}>
+            <div
+              ref={reportRef}
+              id="audit-results-section"
+              className="report-fade-in"
+              style={{ marginTop: '24px' }}
+            >
               {/* Threat Verdict Banner */}
               <ThreatVerdictBanner
                 report={currentReport}
