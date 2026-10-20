@@ -3,7 +3,8 @@
   "services": {
     "app": {
       "root": ".",
-      "runtime": "python"
+      "runtime": "python",
+      "entrypoint": "app:app"
     },
     "client": {
       "root": "client",

@@ -451,6 +451,10 @@ def app(environ: Dict[str, Any], start_response: Any) -> List[bytes]:
     return [b'{"error": "Not Found"}']
 
 
+# Alias for WSGI servers expecting 'application' callable
+application = app
+
+
 def run_rest_api_server(port: int = 5000):
     """Start standard library HTTP REST bridge for MERN stack integration."""
     server = HTTPServer(("0.0.0.0", port), HoneypotAPIHandler)
